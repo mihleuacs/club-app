@@ -1,0 +1,136 @@
+<div class="container my-4">
+  <h2 class="mb-4 text-center">Coach Dashboard</h2>
+  
+        <button class="btn btn-outline-danger" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+  <!-- New Training Session Form -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      Create Training Session
+    </div>
+    <div class="card-body">
+      <form (submit)="createSession(); $event.preventDefault()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" [(ngModel)]="newSession.title" name="title" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" [(ngModel)]="newSession.date" name="date" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Time</label>
+            <input type="time" class="form-control" [(ngModel)]="newSession.time" name="time" required />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="newSession.description" name="description"></textarea>
+          </div>
+          <div class="col-12 text-end">
+            <button class="btn btn-success mt-2" type="submit">Add Session</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+  <div class="card-header bg-secondary text-white">Training Sessions</div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped" *ngIf="trainingSessions && trainingSessions.length > 0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of trainingSessions">
+          <td>{{ session.title }}</td>
+          <td>{{ session.date | date:'mediumDate' }}</td>
+          <td>{{ session.time }}</td>
+          <td>{{ session.description }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteSession(session.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="!trainingSessions || trainingSessions.length === 0" class="text-muted">
+      No training sessions scheduled yet.
+    </p>
+  </div>
+</div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-info text-white">Player Running Stats</div>
+    <div class="card-body">
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Filter by Date</label>
+          <input type="date" class="form-control" [(ngModel)]="filterDate" (change)="onFilterChange()" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Search by Name</label>
+          <input type="text" class="form-control" [(ngModel)]="searchName" (input)="onFilterChange()" placeholder="Enter player name" />
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="sortByQuickest" (change)="onFilterChange()" id="quickestCheck" />
+            <label class="form-check-label" for="quickestCheck">
+              Sort by Quickest Time
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <table class="table table-bordered table-hover" *ngIf="runningStats && runningStats.length > 0">
+        <thead>
+          <tr>
+            <th>Player Name</th>
+            <th>Distance (km)</th>
+            <th>Time (mm:ss)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stat of runningStats">
+            <td>{{ stat.profile?.full_name }}</td>
+            <td>{{ stat.distance_km }}</td>
+            <td>{{ stat.time }}</td>
+            <td>{{ stat.created_at | date: 'shortDate' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="!runningStats || runningStats.length === 0" class="text-muted">
+        No running stats found.
+      </p>
+    </div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">Leaderboard (Total KM Run)</div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Player Name</th>
+            <th>Total KM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of leaderboard">
+            <td>{{ player.name }}</td>
+            <td>{{ player.total | number: '1.1-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

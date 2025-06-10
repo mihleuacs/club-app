@@ -1,0 +1,75 @@
+/* login.component.css */
+
+/*
+  The :host selector targets the component's host element.
+  Making it a flex container with min-height: 100vh centers the content.
+*/
+:host {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  min-height: 100vh;       /* Take full viewport height */
+  width: 100%;             /* Take full width */
+  overflow: auto;          /* Allow scrolling if content is too tall */
+
+  /* Soccer club theme background gradient */
+  background: linear-gradient(135deg, #1a2a4b, #2c5364); /* Dark blue to teal gradient */
+}
+
+.login-card {
+  background-color: #ffffff; /* White card for contrast against dark background */
+  border-radius: 15px; /* Softer rounded corners for a modern feel */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Deeper shadow for a more professional look */
+  padding: 30px; /* More internal padding for spacing */
+  max-width: 450px; /* Set a maximum width for the card */
+  width: 100%; /* Ensure it's responsive on smaller screens */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Custom text colors for headings and labels */
+.text-club-heading {
+  color: #1a2a4b; /* Dark blue from the gradient for emphasis */
+  font-weight: 700; /* Bolder heading */
+  margin-top: 15px; /* Space between icon and heading */
+}
+
+.text-muted-label {
+    color: #5a6268; /* A slightly darker grey for form labels */
+    font-weight: 500; /* Medium font-weight */
+}
+
+/* Custom primary button color (e.g., a vibrant green for soccer) */
+.btn-club-primary {
+  background-color: #4CAF50; /* A common vibrant green */
+  border-color: #4CAF50;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.btn-club-primary:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+  border-color: #45a049;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+/* Make form controls and button a bit larger for better mobile touch targets */
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+/* Icon styling */
+.bi-soccer {
+  font-size: 4rem; /* Larger icon size */
+  color: #4CAF50; /* Match button color for consistency */
+}
+
+/* Alert styling for error messages */
+.alert-danger {
+  border-radius: 0.5rem; /* Slightly rounded corners for alerts */
+}

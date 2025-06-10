@@ -1,0 +1,117 @@
+<div class="container py-4">
+
+  <!-- Navbar with Logout -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-4 shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">Player Dashboard</a>
+      <div class="d-flex align-items-center">
+        <button class="btn btn-outline-danger" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row g-4">
+
+    <!-- Training Sessions -->
+    <section class="col-md-4">
+      <div class="card h-100 shadow-sm border-primary">
+        <div class="card-header bg-primary text-white d-flex align-items-center">
+          <i class="bi bi-calendar-event-fill me-3 fs-3"></i>
+          <h5 class="mb-0">Training Sessions</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush" *ngIf="trainingSessions.length; else noSessions">
+            <li *ngFor="let session of trainingSessions" class="list-group-item">
+              <strong>{{ session.date | date: 'mediumDate' }}</strong> - {{ session.title }} - {{ session.time }}
+            </li>
+          </ul>
+          <ng-template #noSessions>
+            <p class="text-muted fst-italic">No training sessions assigned yet.</p>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+
+   <!-- Enter Running Record -->
+<section class="col-md-4">
+  <div class="card h-100 shadow-sm border-success">
+    <div class="card-header bg-success text-white d-flex align-items-center">
+      <i class="bi bi-speedometer2 me-3 fs-3"></i>
+      <h5 class="mb-0">Enter Running Record</h5>
+    </div>
+    <div class="card-body">
+      <form #runForm="ngForm" (ngSubmit)="addRunningRecord(runForm)" novalidate>
+        <div class="mb-3">
+          <label for="distance" class="form-label">Distance (km)</label>
+          <input
+            type="number"
+            id="distance"
+            name="distance"
+            [(ngModel)]="runningDistance"
+            #distance="ngModel"
+            min="0"
+            step="0.01"
+            required
+            class="form-control"
+            placeholder="e.g., 5.25"
+          />
+          <div *ngIf="distance.invalid && (distance.dirty || distance.touched)" class="text-danger small">
+            Please enter a valid distance.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="time" class="form-label">Time (mm:ss)</label>
+          <input
+            type="text"
+            id="time"
+            name="time"
+            [(ngModel)]="runningTime"
+            #time="ngModel"
+            pattern="^\d{1,2}:\d{2}$"
+            required
+            placeholder="e.g., 05:30"
+            class="form-control"
+          />
+          <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger small">
+            Please enter time in mm:ss format.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100" [disabled]="!runForm.valid">
+          <i class="bi bi-plus-circle"></i> Add Record
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Running Progress -->
+    <section class="col-md-4">
+      <div class="card h-100 shadow-sm border-info">
+        <div class="card-header bg-info text-white d-flex align-items-center">
+          <i class="bi bi-bar-chart-line-fill me-3 fs-3"></i>
+          <h5 class="mb-0">Running Progress</h5>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <ul class="list-group list-group-flush mb-3" *ngIf="runningRecords.length; else noRecords">
+            <li *ngFor="let record of runningRecords" class="list-group-item d-flex justify-content-between">
+              <span>{{ record.distance_km }} km</span>
+              <span>{{ record.time }}</span>
+              <span>{{ record.created_at | date: 'medium' }}</span>
+            </li>
+          </ul>
+          <ng-template #noRecords>
+            <p class="text-muted fst-italic">No running records yet.</p>
+          </ng-template>
+          
+         
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

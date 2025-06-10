@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-club-gradient">
+  <div class="card p-4 shadow-lg login-card">
+    <div class="card-body">
+      <div class="text-center mb-4">
+        <i class="bi bi-soccer text-club-primary fs-1 mb-3"></i>
+        <h2 class="card-title text-center text-club-heading">Player Login</h2>
+      </div>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="mb-3">
+          <label for="email" class="form-label text-muted-label">Email</label>
+          <input [(ngModel)]="email" name="email" type="email" class="form-control form-control-lg" id="email" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label text-muted-label">Password</label>
+          <input [(ngModel)]="password" name="password" type="password" class="form-control form-control-lg" id="password" required />
+        </div>
+
+        <button type="submit" class="btn btn-club-primary w-100 btn-lg fw-bold mt-3">Login</button>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center" role="alert">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
